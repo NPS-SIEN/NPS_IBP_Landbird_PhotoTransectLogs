@@ -40,9 +40,9 @@ FROM tbl_Sites INNER JOIN tbl_Schedule ON tbl_Sites.Site_ID = tbl_Schedule.Site_
   filter(Calendar_year==year)
 
 #get images from database
-images<-sqlQuery(connection, "SELECT tbl_Locations.Park_code, tbl_Locations.Site_ID, tbl_Locations.Location_code, tbl_Features.Feature_ID, tbl_Features.Feature_desc, tbl_Images_proposed.*
-FROM (tbl_Locations INNER JOIN tbl_Images_proposed ON tbl_Locations.Location_ID = tbl_Images_proposed.Location_ID) LEFT JOIN tbl_Features ON tbl_Images_proposed.Feature_ID = tbl_Features.Feature_ID;
-")
+images<-sqlQuery(connection, "SELECT tbl_Locations.Park_code, tbl_Sites.Site_code, tbl_Locations.Location_code, tbl_Features.Feature_ID, tbl_Features.Feature_desc, tbl_Images_proposed.*
+FROM tbl_Sites INNER JOIN ((tbl_Locations INNER JOIN tbl_Images_proposed ON tbl_Locations.Location_ID = tbl_Images_proposed.Location_ID) LEFT JOIN tbl_Features ON tbl_Images_proposed.Feature_ID = tbl_Features.Feature_ID) ON tbl_Sites.Site_ID = tbl_Locations.Site_ID
+ORDER BY tbl_Locations.Park_code, tbl_Sites.Site_code, tbl_Locations.Location_code;")
 
 #filter images for transect photo sheet and create filepath
 transect_images<-images %>%
