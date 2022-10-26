@@ -35,3 +35,9 @@ connection <- odbcConnectAccess2007(filepath)
 images<-sqlQuery(connection, "SELECT tbl_Locations.Park_code, tbl_Locations.Site_ID, tbl_Locations.Location_code, tbl_Features.Feature_ID, tbl_Features.Feature_desc, tbl_Images_proposed.*
 FROM (tbl_Locations INNER JOIN tbl_Images_proposed ON tbl_Locations.Location_ID = tbl_Images_proposed.Location_ID) LEFT JOIN tbl_Features ON tbl_Images_proposed.Feature_ID = tbl_Features.Feature_ID;
 ")
+
+#filter images for transect photo sheet and create filepath
+transect_images<-images %>%
+  filter(Is_Active==TRUE) %>%
+  mutate(image_date = ymd(str_sub(Image_filename, 1, 8)),
+         filepath = str_c(server_filepath, Park_code, Image_filename, sep="/"))
