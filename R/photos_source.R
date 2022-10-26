@@ -20,3 +20,6 @@ library(here) #v1.0.1
 #check where the working directory is
 here::dr_here()
 
+##Connect to the landbird database - ensure it is in the data subfolder of your working directory
+filepath <- here("data", "SIEN_Landbirds_BackEnd_20221025_Test.accdb")
+connection <- odbcConnectAccess2007(filepath)
