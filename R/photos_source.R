@@ -15,6 +15,13 @@ library(raster)#v3.5-21
 library(dplyr)#v1.0.9
 library(tidyr)#v1.2.0
 library(here) #v1.0.1 
+library(lubridate)#v1.8.0
+library(stringr)#v1.4.0
+#------------------------------------------------------------------------#
+
+#------------------------ Parameters ------------------------------------#
+#Enter the server filepath that contains your photos up to the park subfolder
+server_filepath <-"SERVER/FILEPATH" 
 #------------------------------------------------------------------------#
 
 #check where the working directory is
