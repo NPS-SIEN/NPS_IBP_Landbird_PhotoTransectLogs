@@ -30,3 +30,8 @@ here::dr_here()
 ##Connect to the landbird database - ensure it is in the data subfolder of your working directory
 filepath <- here("data", "SIEN_Landbirds_BackEnd_20221025_Test.accdb")
 connection <- odbcConnectAccess2007(filepath)
+
+#get images from database
+images<-sqlQuery(connection, "SELECT tbl_Locations.Park_code, tbl_Locations.Site_ID, tbl_Locations.Location_code, tbl_Features.Feature_ID, tbl_Features.Feature_desc, tbl_Images_proposed.*
+FROM (tbl_Locations INNER JOIN tbl_Images_proposed ON tbl_Locations.Location_ID = tbl_Images_proposed.Location_ID) LEFT JOIN tbl_Features ON tbl_Images_proposed.Feature_ID = tbl_Features.Feature_ID;
+")
