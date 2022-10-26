@@ -22,6 +22,9 @@ library(stringr)#v1.4.0
 #------------------------ Parameters ------------------------------------#
 #Enter the server filepath that contains your photos up to the park subfolder
 server_filepath <-"SERVER/FILEPATH" 
+
+#Enter the sampling year for the photo logs
+year<-2022 
 #------------------------------------------------------------------------#
 
 #check where the working directory is
@@ -30,6 +33,11 @@ here::dr_here()
 ##Connect to the landbird database - ensure it is in the data subfolder of your working directory
 filepath <- here("data", "SIEN_Landbirds_BackEnd_20221025_Test.accdb")
 connection <- odbcConnectAccess2007(filepath)
+
+#get sampling schedule
+schedule<-sqlQuery(connection, "SELECT tbl_Schedule.Calendar_year, tbl_Sites.Park_code, tbl_Sites.Site_code
+FROM tbl_Sites INNER JOIN tbl_Schedule ON tbl_Sites.Site_ID = tbl_Schedule.Site_ID ORDER BY tbl_Sites.Park_code, tbl_Sites.Site_code;") %>%
+  filter(Calendar_year==year)
 
 #get images from database
 images<-sqlQuery(connection, "SELECT tbl_Locations.Park_code, tbl_Locations.Site_ID, tbl_Locations.Location_code, tbl_Features.Feature_ID, tbl_Features.Feature_desc, tbl_Images_proposed.*
