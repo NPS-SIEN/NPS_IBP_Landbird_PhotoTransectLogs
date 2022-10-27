@@ -1,0 +1,31 @@
+---
+title: "NPS_IBP_Landbird_CreatePhotoTransectLogs"
+author: "Sarah Wakamiya"
+date: '2022-10-26'
+purpose: To create landbird monitoring photo transect logs
+project: NPS IBP Landbird Photo Transect Logs
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+classoption: landscape
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, echo = FALSE)
+library(knitr) #v1.39
+library(pander) #v0.6.5
+
+#source the file that collects the photo information
+source("R/photos_source.R")
+
+
+```
+
+## Park 
+
+```{r photos, fig.show = "hold", out.width = "50%", out.height="50%", fig.align = "default"}
+knitr::include_graphics(transect_images$filepath, error=FALSE, rel_path = FALSE)
+
+```
+
