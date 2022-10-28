@@ -26,11 +26,13 @@ source("R/photos_source.R")
 
 ```
 
-# `r transect_images$Park_Code`
 
-```{r photos, fig.show = "hold", out.width = "50%", out.height="50%", fig.align = "default"}
-transect_images$Location_code
-knitr::include_graphics(transect_images$filepath, error=FALSE, rel_path = FALSE)
-transect_images$Image_filename
+```{r, results='asis'}
+
+ for(i in 1:nrow(transect_images)){
+   cat(paste("\n\n##", transect_images$Image_filename[i]), "\n")
+   knitr::include_graphics(transect_images$filepath, error=FALSE, rel_path = FALSE)
+ 
+ }
 ```
 
