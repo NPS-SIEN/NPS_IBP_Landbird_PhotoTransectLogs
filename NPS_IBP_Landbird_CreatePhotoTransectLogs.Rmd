@@ -21,8 +21,8 @@ library(glue) #v1.6.2
 #-------------data-------------------
 #source the file that collects the photo information
 source("R/photos_source.R")
-# transect_images<-transect_images%>%
-#     filter(Site_code== params$Site_code)
+#transect_images<-transect_images
+#     filter(Site_code== params$S%>%ite_code)
 
 ```
 
@@ -30,8 +30,9 @@ source("R/photos_source.R")
 ```{r, results='asis'}
 
  for(i in 1:nrow(transect_images)){
-   cat(paste("\n\n##", transect_images$Image_filename[i]), "\n")
-   knitr::include_graphics(transect_images$filepath, error=FALSE, rel_path = FALSE)
+   cat(paste("\n\n###", transect_images$Image_filename[i]))
+   cat(paste("![](", transect_images$filepath[i], "){height=50%}", "\n"))
+   #knitr::include_graphics(transect_images$filepath, error=FALSE, rel_path = FALSE)
  
  }
 ```
