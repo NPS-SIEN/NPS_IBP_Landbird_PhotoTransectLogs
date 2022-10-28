@@ -47,5 +47,8 @@ ORDER BY tbl_Locations.Park_code, tbl_Sites.Site_code, tbl_Locations.Location_co
 #filter images for transect photo sheet and create filepath
 transect_images<-images %>%
   filter(Is_Active==TRUE) %>%
-  mutate(image_date = ymd(str_sub(Image_filename, 1, 8)), 
-         filepath = if_else(Park_code=="DEPO", str_c(server_filepath, Park_code, paste("70", Location_code, sep=""), Image_filename, sep="/"), str_c(server_filepath, Park_code, Site_code, Image_filename, sep="/")))
+  filter(Site_code=="8001")%>%
+  mutate(Image_date = ymd(str_sub(Image_filename, 1, 8)),
+         Image_filename = str_replace(Image_filename, "jpg", "JPG"),
+         Image_filename = ifelse(str_detect(Image_filename, "JPG"), Image_filename, paste(Image_filename, ".JPG", sep="")),
+         filepath = ifelse(Park_code=="DEPO", str_c(server_filepath, Park_code, paste("70", Location_code, sep=""), Image_filename, sep="/"), str_c(server_filepath, Park_code, Site_code, Image_filename, sep="/")))
