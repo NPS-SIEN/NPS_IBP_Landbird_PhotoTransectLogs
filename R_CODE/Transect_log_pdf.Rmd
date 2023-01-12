@@ -1,0 +1,38 @@
+---
+output: pdf_document
+params:
+  park: park
+  year: year
+  filtered_image_table: filtered_image_table
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+title: `r paste(params$park, "Transect log for", params$year)  `
+date: Created `r Sys.Date() `
+---
+
+
+```{r results='asis'}
+# create a sub pdf for each transect ( Site_code)
+for (transect in unique(filtered_image_table$Site_code)){
+  
+  # make the transect heading
+  cat("#", transect, "\n")
+  
+  # get the data for the for the photo names _TODO
+  photo_info <-filtered_image_table %>% 
+    dplyr::filter(Site_code == transect)
+  
+  cat("photo Name:",photo_info$Image_filename[1], "\n","\n")
+  
+  # add the image
+  
+}
+
+
+```
+

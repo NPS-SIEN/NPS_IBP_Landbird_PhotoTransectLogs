@@ -1,1 +1,0 @@
-This R_Code folder houses all the function scripts needed to make the photo logs. It should not be altered by users except to update scripts
