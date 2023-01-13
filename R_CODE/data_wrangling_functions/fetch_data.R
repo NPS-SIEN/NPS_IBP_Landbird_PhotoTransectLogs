@@ -9,10 +9,9 @@
 #' @export
 #'
 #' @examples
-#' @import RODBc
+#' @import RODBC
 #' 
 fetch_data <- function(db_name, year){
-  print(db_name)
   
   connection <- RODBC::odbcConnectAccess2007(here::here("INPUT_DATA",db_name))
   
@@ -32,7 +31,5 @@ fetch_data <- function(db_name, year){
                      
   
   return(all_tables)
-  
-  
   
 }

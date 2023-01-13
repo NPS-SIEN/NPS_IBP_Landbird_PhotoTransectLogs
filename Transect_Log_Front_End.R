@@ -42,7 +42,7 @@ year<-2022
 panel_list <- c(1,4)
 
 # The server filepath (up to the park subfolder) that contains your photos (dont forget to use double backslashes): 
-server_filepath <-"C:\\Users\\EEdson\\DOI\\NPS-SIEN-Staff - Landbirds_PhotoTransectLogRScript_2023\\SampleData" 
+server_filepath <-"C:\\Users\\EEdson\\Pictures\\Saved Pictures" 
  
 #------------------------------------------------------------------------#
 
@@ -52,15 +52,7 @@ for(script in list.files(here::here("R_CODE", "data_wrangling_functions"))){
 }
 
 # Step 6: run the following function unaltered
-
 image_table <- create_transect_log(db_name, year, panel_list, server_filepath )
 
-
-
-
-
-#filter images for transect photo sheet and create filepath
-transect_images<-images %>%
-  filter(Is_Active==TRUE) %>%
-  mutate(image_date = ymd(str_sub(Image_filename, 1, 8)),
-         filepath = str_c(server_filepath, Park_code, Image_filename, sep="/"))
+# And that's it! 
+# There should now be a seperate PDF for each park, of all the photos for the transects to be surveyed for the current year

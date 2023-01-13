@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-data/*
+OUTPUT/
 *.csv
-*.txt
+*.accdb
 *.xlsx

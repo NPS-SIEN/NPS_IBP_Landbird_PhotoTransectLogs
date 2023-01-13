@@ -1,13 +1,15 @@
 #' @title Merge Data
 #' @description merges elements of the database tables together to give an images table with location and site information for the selected year
 #'
-#' @param all_tables nested list of eported tables from the access database
+#' @param all_tables nested list of exported tables from the access database
 #'
 #' @return a merged image table
-#' @export
 #'
 #' @examples
+#' 
+#' @importFrom magrittr "%>%
 #' @import dplyr
+#' 
 merge_data <- function(all_tables){
   
   all_tables = all_tables

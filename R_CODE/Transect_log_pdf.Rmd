@@ -16,18 +16,42 @@ date: Created `r Sys.Date() `
 ---
 
 
-```{r results='asis'}
+```{r results='asis', echo = FALSE}
 # create a sub pdf for each transect ( Site_code)
 for (transect in unique(filtered_image_table$Site_code)){
   
   # make the transect heading
-  cat("#", transect, "\n")
+  cat("# Transect:", transect, "\n")
   
   # get the data for the for the photo names _TODO
   photo_info <-filtered_image_table %>% 
     dplyr::filter(Site_code == transect)
   
-  cat("photo Name:",photo_info$Image_filename[1], "\n","\n")
+  # run through the list of images
+  for(image in photo_info$Image_filename){
+    my_image_caption = paste0("Image Filename: ", image)
+                       
+    my_description = paste0("Image Description: ",
+                       photo_info$Image_desc[photo_info$Image_filename == image] )
+    
+    my_filepath = photo_info$full_path[photo_info$Image_filename == image]
+    
+    # check if the image file exists
+    if(file.exists(my_filepath)){
+      cat(paste0("![](", my_filepath, ")"), "\n","\n")
+    } else{
+      cat(paste0("WARNING : The image name below is in the database but does not exist in the image folder"),
+          "\n","\n")
+    }
+           
+    cat(my_image_caption,"\n","\n")       
+    cat(my_description, "\n........\n", sep = "\n")
+    cat("\n\n")
+    
+    #cat(paste0("![](", "~/Desktop/R/Files/", i, ".jpg)"), "\n")
+  }
+  
+
   
   # add the image
   
