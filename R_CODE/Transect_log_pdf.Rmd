@@ -17,13 +17,13 @@ date: Created `r Sys.Date() `
 
 
 ```{r results='asis', echo = FALSE}
-# create a sub pdf for each transect ( Site_code)
+# create a sub pdf for each transect (Site_code)
 for (transect in unique(filtered_image_table$Site_code)){
   
   # make the transect heading
   cat("# Transect:", transect, "\n")
   
-  # get the data for the for the photo names _TODO
+  # get the data for the for the photo names
   photo_info <-filtered_image_table %>% 
     dplyr::filter(Site_code == transect)
   
@@ -43,12 +43,12 @@ for (transect in unique(filtered_image_table$Site_code)){
       cat(paste0("WARNING : The image name below is in the database but does not exist in the image folder"),
           "\n","\n")
     }
-           
+    
+    #print image name and description       
     cat(my_image_caption,"\n","\n")       
     cat(my_description, "\n........\n", sep = "\n")
     cat("\n\n")
     
-    #cat(paste0("![](", "~/Desktop/R/Files/", i, ".jpg)"), "\n")
   }
   
 
