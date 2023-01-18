@@ -25,6 +25,7 @@ merge_data <- function(all_tables){
   
   # get relevent location information
   scheduled_locations <- all_tables$locations %>% 
+    dplyr::filter(Location_status == "Active") %>% 
     dplyr::select(Location_ID, Site_ID, Location_code) %>% 
     dplyr::inner_join(scheduled_sites, by = "Site_ID")
   
