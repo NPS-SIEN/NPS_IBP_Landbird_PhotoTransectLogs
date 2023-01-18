@@ -1,0 +1,66 @@
+---
+output: pdf_document
+params:
+  park: park
+  year: year
+  filtered_image_table: filtered_image_table
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+title: `r paste(params$park, "Transect log for", params$year)  `
+date: Created `r Sys.Date() `
+---
+
+
+```{r results='asis', echo = FALSE}
+# create a sub pdf for each transect (Site_code)
+for (transect in unique(filtered_image_table$Site_code)){
+  
+  # make the transect heading
+  cat("# Transect:", transect, "\n")
+  
+  # get the data for the for the photo names
+  photo_info <-filtered_image_table %>% 
+    dplyr::filter(Site_code == transect)
+  
+  # loop though each transect leg separately
+  for(leg in unique(photo_info$transect_legs)){
+    
+    # make the leg heading
+    cat("## Leg:", leg, "\n")
+    
+    photo_info_leg <-photo_info %>% 
+    dplyr::filter(transect_legs == leg)
+    
+    # run through the list of images for the leg
+    for(image in photo_info_leg$Image_filename){
+      my_image_caption = paste0("Image Filename: ", image)
+                         
+      my_description = paste0("Image Description: ",
+                         photo_info$Image_desc[photo_info$Image_filename == image] )
+      
+      my_filepath = photo_info$full_path[photo_info$Image_filename == image]
+      
+      # check if the image file exists
+      if(file.exists(my_filepath)){
+        cat(paste0("![](", my_filepath, ")"), "\n","\n")
+      } else{
+        cat(paste0("WARNING : The image name below is in the database but does not exist in the image folder"),
+            "\n","\n")
+      }
+      
+      #print image name and description       
+      cat(my_image_caption,"\n","\n")       
+      cat(my_description, "\n........\n", sep = "\n")
+      cat("\n\n")
+    }
+  }
+}
+
+
+```
+
