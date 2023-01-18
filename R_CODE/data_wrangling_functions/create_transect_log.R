@@ -39,12 +39,9 @@ create_transect_log<- function(db_name, year, panel_list, server_filepath){
                     full_path) %>% 
       dplyr::mutate(image_year = as.numeric(stringr::str_sub(Image_filename,1,4)),
                     transect_legs = dplyr::case_when(
-                      stringr::str_starts(Location_code, "N") ~ "North Leg",
-                      stringr::str_starts(Location_code, "S") ~ "South Leg",
-                      stringr::str_starts(Location_code, "E") ~ "East Leg",
-                      stringr::str_starts(Location_code, "W") ~ "West Leg",
-                      stringr::str_starts(Location_code, "T") ~ "An Origin point",
-                      TRUE ~ "Points")) %>% 
+                    stringr::str_starts(Location_code, "N|S|E|W") ~ stringr::str_sub(Location_code, 1,2),
+                    stringr::str_starts(Location_code, "T") ~ "_TO",
+                    TRUE ~ "Points")) %>%
       dplyr::arrange(Site_code,transect_legs,Location_code,image_year)
     
     # knit the pdf using Transect_log_pdf.Rmd
