@@ -53,7 +53,7 @@ for (transect in unique(filtered_image_table$Site_code)){
         
         # check if the image file exists:
         if(file.exists(my_filepath)){
-          cat(paste0("![](", my_filepath, "){height=3.5in}"), "\n","\n")
+          cat(paste0("![](", my_filepath, "){height=3.25in}"), "\n","\n")
         } else{
           cat(paste0("WARNING : The image name below is in the database but does not exist in the image folder"),
               "\n","\n")
@@ -90,7 +90,7 @@ for (transect in unique(filtered_image_table$Site_code)){
           
           # check if the image file exists
           if(file.exists(my_filepath)){
-            cat(paste0("![](", my_filepath, "){height=3.5in}"), "\n","\n")
+            cat(paste0("![](", my_filepath, "){height=3.25in}"), "\n","\n")
           } else{
             cat(paste0("WARNING : The image name below is in the database but does not exist in the image folder"),
                 "\n","\n")
