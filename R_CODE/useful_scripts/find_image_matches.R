@@ -8,8 +8,9 @@
 
 
 #------------------------ Libraries -------------------------------------#
-library(stringr)
-library(dplyr)
+library(stringr) #v.1.4.1
+library(dplyr) #v1.0.10
+
 library(tidyr)
 library(readr)
 #------------------------------------------------------------------------#
@@ -17,21 +18,21 @@ library(readr)
 #------------------------ Variables -------------------------------------#
 # export of the tbl_Images from the database as a csv
 image_tbl <- "tbl_Images.csv"
-# csv of just the filepaths/names from the server as a csv
-image_filenames <- "photocount_20230109.csv"
+# table of just the filepaths/names file exported from the server as a csv
+image_filenames <- "photocount_export.csv"
 #------------------------------------------------------------------------#
 
 #--------------------------------------------------- read in csv's ------
 
+# note you will need to change the filepath to the files
 images <- readr::read_csv(paste0("../",image_tbl),
                           col_types = "nncccncclccn")
+
 image_names <- readr::read_csv(paste0("../",image_filenames),
-                               col_types = "c")
+                               col_types = "c",
+                               col_names = c("FilePath"))
 
 #------------------------------------clean up the image filenames ------
-
-# list of jpg-like file extensions
-ext_list <- c(".jpg", ".JPG", ".jpeg", ".JPEG",".jg")
 
 # filter the image names to the jpg strings and seperate max 3 times
 image_names_jpg <- image_names %>% 
