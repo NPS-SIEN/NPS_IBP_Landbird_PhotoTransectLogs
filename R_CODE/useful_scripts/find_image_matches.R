@@ -10,7 +10,6 @@
 #------------------------ Libraries -------------------------------------#
 library(stringr) #v.1.4.1
 library(dplyr) #v1.0.10
-
 library(tidyr)
 library(readr)
 #------------------------------------------------------------------------#
@@ -73,7 +72,20 @@ images_new <- images_new %>%
                                             match_type)) %>% 
   dplyr::select(-c(Point, Park, add_jpg, file_name))
 
+# find matches where the filename is missing the .jpeg
+images_new <- images_new %>%
+  dplyr::mutate(add_jpeg = paste0(tolower(Image_filename),".jpeg")) %>% 
+  dplyr::left_join(image_names_jpg %>% 
+                     dplyr::mutate(lower_filename = tolower(file_name) ),
+                   by = c("add_jpeg" = "lower_filename")) %>% 
+  dplyr::mutate(match_type = dplyr::if_else(!is.na(Point) & match_type=="no match",
+                                            "Fuzzy match - missing .jpeg",
+                                            match_type)) %>% 
+  dplyr::select(-c(Point, Park, add_jpeg, file_name))
+
+# write to csv
 write.csv(images_new, "tbl_Images_matchSearch.csv", row.names = FALSE)
+
 
 # find out how many of each class
 table(images_new$match_type)
